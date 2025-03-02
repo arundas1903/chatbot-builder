@@ -5,8 +5,6 @@ import {
   TextField,
   Typography,
   CircularProgress,
-  Alert,
-  Snackbar,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -128,12 +126,14 @@ const Shopify: React.FC = () => {
   const handleSubmit = async () => {
     if (!prompt.trim()) {
       setError('Please enter a query');
+      console.log(error);
       return;
     }
 
     setLoading(true);
     setError(null);
     setSuccess(false);
+    console.log(success);
 
     try {
       const response = await fetch(`${API_CONFIG.BASE_URL}/shopify_query`, {
