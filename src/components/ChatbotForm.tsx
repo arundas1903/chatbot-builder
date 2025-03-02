@@ -48,14 +48,11 @@ const ChatbotForm: React.FC = () => {
 
   const channels: Channel[] = ['WhatsApp', 'Voice', 'Web Chat'];
 
-  const handleConnect = (credentials: { apiKey: string; apiSecret: string }) => {
-    // Here you would typically make an API call to verify the credentials
-    // For now, we'll simulate a successful connection
+  const handleConnect = (_credentials: { apiKey: string; apiSecret: string }) => {
     setIsConnected(true);
-    setShowConnectModal(false);
     setToast({
       open: true,
-      message: `Successfully connected to ${selectedSubPlatform}`,
+      message: 'Successfully connected to platform',
       severity: 'success'
     });
   };

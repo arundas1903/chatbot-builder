@@ -5,6 +5,7 @@ import {
   Dashboard as DashboardIcon,
   Chat as ChatIcon,
   Add as AddIcon,
+  ShoppingBag as ShopifyIcon,
 } from '@mui/icons-material';
 import Header from './Header';
 
@@ -14,6 +15,7 @@ const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
   { text: 'Chatbots', icon: <ChatIcon />, path: '/chatbot' },
   { text: 'Create Chatbot', icon: <AddIcon />, path: '/chatbot/create' },
+  { text: 'Shopify', icon: <ShopifyIcon />, path: '/shopify' },
 ];
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {

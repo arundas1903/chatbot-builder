@@ -1,12 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Grid,
   Paper,
   Typography,
-  Divider,
-  LinearProgress,
-  useTheme,
   FormControl,
   InputLabel,
   Select,
@@ -16,25 +13,21 @@ import {
   Stack,
   ToggleButton,
   ToggleButtonGroup,
+  LinearProgress,
+  useTheme,
 } from '@mui/material';
 import {
   ChatBubble as ChatIcon,
-  Person as PersonIcon,
   Timer as TimerIcon,
   ShoppingCart as CartIcon,
   Support as SupportIcon,
   Psychology as BrainIcon,
-  Language as ChannelIcon,
   TrendingUp as TrendingUpIcon,
   SentimentSatisfiedAlt as SentimentIcon,
-  Speed as SpeedIcon,
   FilterAlt as FilterIcon,
   RestartAlt as ResetIcon,
-  CalendarMonth as CalendarIcon,
 } from '@mui/icons-material';
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   PieChart,
@@ -48,6 +41,7 @@ import {
   ResponsiveContainer,
   AreaChart,
   Area,
+  Line,
 } from 'recharts';
 
 // Mock chatbots data
@@ -106,15 +100,6 @@ const conversationData = [
   { name: 'Sun', conversations: 1100, users: 700 },
 ];
 
-const salesData = [
-  { name: 'Jan', value: 4000 },
-  { name: 'Feb', value: 3000 },
-  { name: 'Mar', value: 2000 },
-  { name: 'Apr', value: 2780 },
-  { name: 'May', value: 1890 },
-  { name: 'Jun', value: 2390 },
-];
-
 const channelDistribution = [
   { name: 'WhatsApp', value: 45.2 },
   { name: 'Web Chat', value: 32.5 },
@@ -155,8 +140,6 @@ interface MetricCardProps {
 }
 
 const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon, subtitle, progress }) => {
-  const theme = useTheme();
-  
   return (
     <Paper sx={{ p: 2, height: '100%' }}>
       <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 1 }}>
@@ -206,12 +189,11 @@ const Dashboard: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('7d');
 
   const handleTimeRangeChange = (
-    event: React.MouseEvent<HTMLElement>,
+    _event: React.MouseEvent<HTMLElement>,
     newTimeRange: TimeRange,
   ) => {
     if (newTimeRange !== null) {
       setTimeRange(newTimeRange);
-      // Here you would fetch new data based on the time range
     }
   };
 
@@ -442,7 +424,7 @@ const Dashboard: React.FC = () => {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {channelDistribution.map((entry, index) => (
+                  {channelDistribution.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>

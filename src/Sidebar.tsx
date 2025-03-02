@@ -9,7 +9,6 @@ const Sidebar: React.FC = () => {
   const [selectedNav, setSelectedNav] = useState<'dashboard' | 'chatbot'>('dashboard');
   const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null);
   const [selectedSubPlatform, setSelectedSubPlatform] = useState<SubPlatform | null>(null);
-  const [showConnectModal, setShowConnectModal] = useState(false);
   const [chatbotName, setChatbotName] = useState('');
 
   const platforms: Record<Platform, SubPlatform[]> = {
@@ -98,7 +97,6 @@ const Sidebar: React.FC = () => {
             {selectedSubPlatform && (
               <div className="space-y-4">
                 <button
-                  onClick={() => setShowConnectModal(true)}
                   className="w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Connect to {selectedSubPlatform}

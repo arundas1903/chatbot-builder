@@ -107,6 +107,7 @@ const ChatbotCreation: React.FC = () => {
         isOpen={showConnectModal}
         onClose={() => setShowConnectModal(false)}
         platform={selectedSubPlatform || ''}
+        onConnect={() => {}}
       />
     </>
   );
