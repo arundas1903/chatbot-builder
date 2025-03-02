@@ -36,10 +36,11 @@ const ConnectModal: React.FC<ConnectModalProps> = ({ isOpen, onClose, platform, 
 
     if (!newErrors.apiKey && !newErrors.apiSecret) {
       onConnect({ apiKey, apiSecret });
-      // Reset form
+      // Reset form and close modal
       setApiKey('');
       setApiSecret('');
       setErrors({ apiKey: false, apiSecret: false });
+      onClose();
     }
   };
 

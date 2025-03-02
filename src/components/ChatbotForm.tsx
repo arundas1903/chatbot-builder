@@ -13,6 +13,7 @@ import {
   Snackbar,
   Alert,
   AlertColor,
+  CircularProgress,
 } from '@mui/material';
 import ConnectModal from './ConnectModal';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -35,6 +36,7 @@ const ChatbotForm: React.FC = () => {
   const [showConnectModal, setShowConnectModal] = useState(false);
   const [chatbotName, setChatbotName] = useState('');
   const [isConnected, setIsConnected] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<Toast>({
     open: false,
     message: '',
@@ -50,6 +52,7 @@ const ChatbotForm: React.FC = () => {
 
   const handleConnect = (_credentials: { apiKey: string; apiSecret: string }) => {
     setIsConnected(true);
+    setShowConnectModal(false);
     setToast({
       open: true,
       message: 'Successfully connected to platform',
@@ -57,18 +60,31 @@ const ChatbotForm: React.FC = () => {
     });
   };
 
-  const handlePublish = () => {
-    // Here you would typically make an API call to publish the chatbot
-    setToast({
-      open: true,
-      message: 'Chatbot published successfully!',
-      severity: 'success'
-    });
-    
-    // Navigate to the list after a short delay
-    setTimeout(() => {
-      navigate('/chatbot');
-    }, 1500);
+  const handlePublish = async () => {
+    setLoading(true);
+    try {
+      // Simulate API call with a delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setToast({
+        open: true,
+        message: 'Chatbot published successfully!',
+        severity: 'success'
+      });
+      
+      // Navigate to the list after a short delay
+      setTimeout(() => {
+        navigate('/chatbot');
+      }, 1500);
+    } catch (error) {
+      setToast({
+        open: true,
+        message: 'Failed to publish chatbot. Please try again.',
+        severity: 'error'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCloseToast = () => {
@@ -167,10 +183,11 @@ const ChatbotForm: React.FC = () => {
                   variant="contained"
                   color="success"
                   fullWidth
-                  disabled={!isConnected || !selectedChannel}
+                  disabled={!isConnected || !selectedChannel || loading}
                   onClick={handlePublish}
+                  startIcon={loading ? <CircularProgress size={20} color="inherit" /> : null}
                 >
-                  Publish Chatbot
+                  {loading ? 'Publishing...' : 'Publish Chatbot'}
                 </Button>
               </Box>
             )}

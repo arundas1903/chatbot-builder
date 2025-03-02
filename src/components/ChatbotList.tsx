@@ -64,7 +64,14 @@ const ChatbotList: React.FC = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ 
+              backgroundColor: (theme) => theme.palette.primary.main,
+              '& th': { 
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '1rem'
+              }
+            }}>
               <TableCell>Name</TableCell>
               <TableCell>Platform</TableCell>
               <TableCell>Status</TableCell>
