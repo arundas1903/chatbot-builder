@@ -90,8 +90,6 @@ const Shopify: React.FC = () => {
   const [view, setView] = useState<'list' | 'create' | 'configure' | 'success'>('list');
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
   const [queryResponse, setQueryResponse] = useState<QueryResponse | null>(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -125,13 +123,10 @@ const Shopify: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!prompt.trim()) {
-      setError('Please enter a query');
       return;
     }
 
     setLoading(true);
-    setError(null);
-    setSuccess(false);
 
     try {
       const response = await fetch(`${API_CONFIG.BASE_URL}/shopify_query`, {
@@ -184,7 +179,6 @@ const Shopify: React.FC = () => {
       }
 
       setQueryResponse(data);
-      setSuccess(true);
     } catch (err) {
       console.error('Error processing query:', err);
       // Use sample data on error
@@ -195,7 +189,6 @@ const Shopify: React.FC = () => {
         scheduled_time: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
       };
       setQueryResponse(sampleData);
-      setSuccess(true);
     } finally {
       setLoading(false);
     }
@@ -204,20 +197,14 @@ const Shopify: React.FC = () => {
   const handleRunCampaign = async () => {
     setOpenConfirmDialog(false);
     setLoading(true);
-    setError(null);
     
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
-      setSuccess(true);
       setView('success');
       setQueryResponse(null);
       setPrompt('');
-      setSuccess(false);
     } catch (err) {
       console.error('Error running campaign:', err);
-      setError(
-        'Something went wrong while starting the campaign. Please try again or contact support if the issue persists.'
-      );
     } finally {
       setLoading(false);
     }
@@ -226,8 +213,6 @@ const Shopify: React.FC = () => {
   const handleNewCampaign = () => {
     setQueryResponse(null);
     setPrompt('');
-    setSuccess(false);
-    setError(null);
     setView('create');
   };
 
